@@ -53,12 +53,12 @@ public class RectangularBursche implements Visualizable{
         c = new Color(0,0,0,1f);
         drawJointState(g ,js,xRatio,yRatio,radiusRatio, c);
         g.setColor(Color.RED);
-        if (currentJointStateSearch!=null) {
+        if (currentJointStateSearch!=null&&false) {
             JointState toPaint = currentJointStateSearch;
             c = new Color(1f,0,0,0.5f);
             drawJointState(g,toPaint,xRatio,yRatio,radiusRatio,c);
         }
-        if (stateSpace != null){
+        if (stateSpace != null&&false){
             Iterator<JointState> it = stateSpace.iterator();
             while (it.hasNext()){
                 c = new Color(1f,0,0,0.1f);
