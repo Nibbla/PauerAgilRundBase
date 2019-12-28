@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
 public class Joint {
-    private final int radius;
+    private final double radius;
     private JointType jointTypeX;
     private JointType jointTypeY;
     private ArrayList<Edge> edges = new ArrayList<>(3);
     private ArrayList<Joint> neighbourJoints = new ArrayList<>(3);
 
-    public Joint(int r, JointType jointType) {
+    public Joint(double r, JointType jointType) {
         this.radius = r;
         this.jointTypeX = jointType;
         for (int i = 0; i < JointType.values().length; i++) {
@@ -16,7 +16,7 @@ public class Joint {
         }
     }
 
-    public int getRadius() {
+    public double getRadius() {
         return radius;
     }
 

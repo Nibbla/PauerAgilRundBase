@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 
@@ -13,27 +14,27 @@ public class JointStructure {
 
     public JointStructure(){
         joints = new ArrayList<>();
-        Joint head = new Joint(4,JointType.headX);
-        Joint neck = new Joint(2,JointType.neckX);
+        Joint head = new Joint(3,JointType.headX);
+        Joint neck = new Joint(1.2,JointType.neckX);
         Joint lElbow = new Joint(1,JointType.lElbowX);
         Joint rElbow = new Joint(1,JointType.rElbowX);
-        Joint lFist = new Joint(1,JointType.lFistX);
-        Joint rFist = new Joint(1,JointType.rFistX);
-        Joint hip = new Joint(2,JointType.hipX);
+        Joint lFist = new Joint(0.3,JointType.lFistX);
+        Joint rFist = new Joint(0.3,JointType.rFistX);
+        Joint hip = new Joint(1.3,JointType.hipX);
         Joint lKnee = new Joint(1,JointType.lKneeX);
         Joint rKnee = new Joint(1,JointType.rKneeX);
         Joint lFoot = new Joint(1,JointType.lFootX);
         Joint rFoot = new Joint(1,JointType.rFootX);
-        Joint.connect(head,neck,2,2);
-        Joint.connect(lElbow,neck,2,2);
-        Joint.connect(rElbow,neck,2,2);
-        Joint.connect(lElbow,lFist,4,5);
-        Joint.connect(rElbow,rFist,4,5);
-        Joint.connect(neck,hip,4,6);
-        Joint.connect(lKnee,hip,2,2);
-        Joint.connect(rKnee,hip,4,5);
-        Joint.connect(lFoot,lKnee,4,5);
-        Joint.connect(rFoot,rKnee,4,5);
+        Joint.connect(head,neck,0,1);
+        Joint.connect(lElbow,neck,5,7);
+        Joint.connect(rElbow,neck,5,7);
+        Joint.connect(lElbow,lFist,5,7);
+        Joint.connect(rElbow,rFist,5,7);
+        Joint.connect(neck,hip,12,14);
+        Joint.connect(lKnee,hip,5,7);
+        Joint.connect(rKnee,hip,5,7);
+        Joint.connect(lFoot,lKnee,4,6);
+        Joint.connect(rFoot,rKnee,4,6);
         joints.add(head);
         joints.add(neck);
         joints.add(lElbow);
@@ -99,4 +100,26 @@ public class JointStructure {
         }
         return js;
     }
+
+    public HashSet<JointState> getStateSpace(JointState start){
+        HashSet<JointState> stateSpace = new HashSet<>();
+        stateSpace.add(start);
+        LinkedList<JointState> queue = new LinkedList<>();
+        queue.add(start);
+        while (!queue.isEmpty()){
+
+            System.out.println("sp: " + stateSpace.size() + " queue: " + queue.size());
+            JointState current = queue.poll();
+            RectangularBursche.setCurrentJointStateSearch(current);
+            ArrayList<JointState> neighbours = current.getNeighbouringStates(this);
+            for (JointState nb: neighbours){
+                if (!stateSpace.add(nb)){
+                    continue;
+                }
+                queue.add(nb);
+            }
+        }
+        return stateSpace;
+    }
+
 }

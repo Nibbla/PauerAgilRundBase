@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class Edge {
     private final Joint j1;
     private final Joint j2;
@@ -34,9 +37,13 @@ public class Edge {
 
         double r = Math.sqrt((minDistanceSquared+maxDistanceSquared)/2.);
         double PI = 3.1415926535;
-        double i, angle, x1, y1;
-
-        for (i = 0; i < 360; i += 1) {
+        double  angle, x1, y1;
+        ArrayList<Integer> values = new ArrayList<>();
+        for (int j = 0; j < 360; j++) {
+            values.add(j);
+        }
+        Collections.shuffle(values);
+        for (Integer i: values) {
             angle = i;
             x1 = r * Math.cos(angle * PI / 180.);
             y1 = r * Math.sin(angle * PI / 180.);
@@ -47,6 +54,9 @@ public class Edge {
                 continue;
             js.setValue(neighbour.getJointTypeX(), (int) ElX);
             js.setValue(neighbour.getJointTypeY(), (int) ElY);
+            if (!isLegal(js)){
+                isLegal(js);
+            };
             break;
         }
 

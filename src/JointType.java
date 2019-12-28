@@ -49,29 +49,29 @@ public enum JointType {
 
     public void setValue(int valueSrc, JointState jointState) {
         long value = valueSrc;
-        System.out.println("val: " + Long.toBinaryString(value) + " index:" + index);
+        //System.out.println("val: " + Long.toBinaryString(value) + " index:" + index);
         if (index<60){
             long addition = value<<index;
-            System.out.println("add: " + Long.toBinaryString(addition));
+           // System.out.println("add: " + Long.toBinaryString(addition));
 
 
-            System.out.println(Long.toBinaryString(jointState.l1));
-            System.out.println("msk: " + Long.toBinaryString(inverseMask));
+           // System.out.println(Long.toBinaryString(jointState.l1));
+            //System.out.println("msk: " + Long.toBinaryString(inverseMask));
             jointState.l1&=inverseMask;
-            System.out.println(Long.toBinaryString(jointState.l1));
+           // System.out.println(Long.toBinaryString(jointState.l1));
             jointState.l1+= addition;
 
-            System.out.println(Long.toBinaryString(jointState.l1));
+           // System.out.println(Long.toBinaryString(jointState.l1));
         }else {
             long addition = value<<(index-60);
-            System.out.println(Long.toBinaryString(addition));
+           // System.out.println(Long.toBinaryString(addition));
 
 
-            System.out.println(Long.toBinaryString(jointState.l2));
+           // System.out.println(Long.toBinaryString(jointState.l2));
             jointState.l2&=inverseMask;
-            System.out.println(Long.toBinaryString(jointState.l2));
+           // System.out.println(Long.toBinaryString(jointState.l2));
             jointState.l2+= addition;
-            System.out.println(Long.toBinaryString(jointState.l2));
+           // System.out.println(Long.toBinaryString(jointState.l2));
         }
     }
 }
